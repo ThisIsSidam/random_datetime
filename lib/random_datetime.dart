@@ -2,9 +2,9 @@ library;
 
 import 'dart:math';
 
-import 'package:random_datetime/enums/days_in_months.dart';
-import 'package:random_datetime/range_options.dart';
-import 'package:random_datetime/utils/random_ext.dart';
+import 'package:random_datetime/src/enums/days_in_months.dart';
+import 'package:random_datetime/src/models/range_options.dart';
+import 'package:random_datetime/src/utils/random_ext.dart';
 
 class RandomDateTime {
   final Random _random;

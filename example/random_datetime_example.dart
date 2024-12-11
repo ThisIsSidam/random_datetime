@@ -1,9 +1,9 @@
 import 'package:random_datetime/random_datetime.dart';
-import 'package:random_datetime/range.dart';
-import 'package:random_datetime/range_options.dart';
+import 'package:random_datetime/src/models/range.dart';
+import 'package:random_datetime/src/models/range_options.dart';
 
 void main() async {
-  final now = DateTime.now();
+  final DateTime now = DateTime.now();
 
   final RandomDateTime randomDT = RandomDateTime(
       options: RandomOptions(
@@ -12,7 +12,8 @@ void main() async {
     hourRange: const Range(start: 22, end: 10),
   ));
 
-  for (var i = 0; i < 5; i++) {
+  for (int i = 0; i < 5; i++) {
+    // ignore: avoid_print
     print(randomDT.random());
   }
 }

@@ -1,4 +1,4 @@
-import 'package:random_datetime/range.dart';
+import 'package:random_datetime/src/models/range.dart';
 
 class RandomOptions {
   // Private Ranges for each time unit
