@@ -2,7 +2,7 @@ name: random_datetime
 description: "A new Flutter package project."
 version: 0.0.1
 homepage:
-repository:
+repository: https://github.com/ThisIsSidam/random_datetime
 
 environment:
   sdk: ^3.5.4
