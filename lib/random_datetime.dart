@@ -34,9 +34,9 @@ class RandomDateTime {
 
   int _randomMonth(int year) {
     if (year == options.now.year) {
-      return options.now.month + _random.nextInt(12 - options.now.month + 1);
+      return _random.randomPick(options.months.sublist(options.now.month - 1));
     } else {
-      return _random.nextInt(12) + 1;
+      return _random.randomPick(options.months);
     }
   }
 
