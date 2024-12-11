@@ -61,62 +61,62 @@ class RandomOptions {
   // Helper method to handle wraparound for circular ranges
   List<int> _initializeCircularRange(int start, int end, int max) {
     if (end >= start) {
-      return List<int>.generate(end - start + 1, (index) => start + index);
+      return List<int>.generate(end - start + 1, (int index) => start + index);
     } else {
       // Wraparound case: from start to max, then from 0 to end
-      return [
-        ...List<int>.generate(max - start + 1, (index) => start + index),
-        ...List<int>.generate(end + 1, (index) => index)
+      return <int>[
+        ...List<int>.generate(max - start + 1, (int index) => start + index),
+        ...List<int>.generate(end + 1, (int index) => index)
       ];
     }
   }
 
   List<int> _initializeYearList() {
-    final start = _yearRange.start ?? now.year;
-    final end =
+    final int start = _yearRange.start ?? now.year;
+    final int end =
         _yearRange.end ?? (_yearRange.start != null ? start + 5 : now.year + 5);
-    return List<int>.generate(end - start + 1, (index) => start + index);
+    return List<int>.generate(end - start + 1, (int index) => start + index);
   }
 
   List<int> _initializeMonthList() {
-    final start = _monthRange.start ?? 1;
-    final end = _monthRange.end ?? 12;
+    final int start = _monthRange.start ?? 1;
+    final int end = _monthRange.end ?? 12;
     return _initializeCircularRange(start, end, 12);
   }
 
   List<int> _initializeDayList() {
-    final start = _dayRange.start ?? 1;
-    final end = _dayRange.end ?? 31;
+    final int start = _dayRange.start ?? 1;
+    final int end = _dayRange.end ?? 31;
     return _initializeCircularRange(start, end, 31);
   }
 
   List<int> _initializeHourList() {
-    final start = _hourRange.start ?? 0;
-    final end = _hourRange.end ?? 23;
+    final int start = _hourRange.start ?? 0;
+    final int end = _hourRange.end ?? 23;
     return _initializeCircularRange(start, end, 23);
   }
 
   List<int> _initializeMinuteList() {
-    final start = _minuteRange.start ?? 0;
-    final end = _minuteRange.end ?? 59;
+    final int start = _minuteRange.start ?? 0;
+    final int end = _minuteRange.end ?? 59;
     return _initializeCircularRange(start, end, 59);
   }
 
   List<int> _initializeSecondList() {
-    final start = _secondRange.start ?? 0;
-    final end = _secondRange.end ?? 59;
+    final int start = _secondRange.start ?? 0;
+    final int end = _secondRange.end ?? 59;
     return _initializeCircularRange(start, end, 59);
   }
 
   List<int> _initializeMillisecondList() {
-    final start = _millisecondRange.start ?? 0;
-    final end = _millisecondRange.end ?? 999;
-    return List<int>.generate(end - start + 1, (index) => start + index);
+    final int start = _millisecondRange.start ?? 0;
+    final int end = _millisecondRange.end ?? 999;
+    return List<int>.generate(end - start + 1, (int index) => start + index);
   }
 
   List<int> _initializeMicrosecondList() {
-    final start = _microsecondRange.start ?? 0;
-    final end = _microsecondRange.end ?? 999;
-    return List<int>.generate(end - start + 1, (index) => start + index);
+    final int start = _microsecondRange.start ?? 0;
+    final int end = _microsecondRange.end ?? 999;
+    return List<int>.generate(end - start + 1, (int index) => start + index);
   }
 }

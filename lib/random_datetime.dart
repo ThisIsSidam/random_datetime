@@ -1,4 +1,4 @@
-library random_datetime;
+library;
 
 import 'dart:math';
 

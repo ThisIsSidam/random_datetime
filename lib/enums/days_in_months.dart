@@ -19,7 +19,7 @@ enum DaysInMonth {
 
   int getDays({int? year}) {
     if (month == 2) {
-      final isLeap = isLeapYear(year ?? DateTime.now().year);
+      final bool isLeap = isLeapYear(year ?? DateTime.now().year);
       if (isLeap) {
         return _days + 1;
       }
