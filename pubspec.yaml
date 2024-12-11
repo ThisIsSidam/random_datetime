@@ -8,3 +8,5 @@ environment:
   sdk: ^3.5.4
 dev_dependencies:
   lints: ^5.0.0
+dependencies:
+  test: ^1.25.12

@@ -1,26 +1,32 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "name": "random_datetime",
             "request": "launch",
             "type": "dart",
-            "program": "example/random_datetime_example.dart"
+            "program": "${workspaceFolder}/example/random_datetime_example.dart"
         },
         {
             "name": "random_datetime (profile mode)",
             "request": "launch",
             "type": "dart",
+            "program": "${workspaceFolder}/example/random_datetime_example.dart",
             "flutterMode": "profile"
         },
         {
             "name": "random_datetime (release mode)",
             "request": "launch",
             "type": "dart",
+            "program": "${workspaceFolder}/example/random_datetime_example.dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "random_datetime (test mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "${workspaceFolder}/test/random_datetime_test.dart",
+            "flutterMode": "debug"
         }
     ]
 }
