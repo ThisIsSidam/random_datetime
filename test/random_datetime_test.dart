@@ -2,6 +2,7 @@ import 'package:random_datetime/src/models/random_dt_options.dart';
 import 'package:random_datetime/src/utils/datetime_ext.dart';
 import 'package:test/test.dart';
 
+// ignore_for_file: lines_longer_than_80_chars
 void main() {
   group('DateTimeExt - remainingMonths', () {
     test('returns remaining months from the current month onwards', () {
@@ -45,6 +46,16 @@ void main() {
 
       // If allowPastDates is false, and months are specified, only valid year is 2025
       expect(validYears, equals(<int>[2025]));
+    });
+
+    test(
+        'Does not return current year if only current day is valid. Ignore current day',
+        () {
+      final RandomDTOptions options =
+          RandomDTOptions(startYear: 2024, endYear: 2026, days: <int>[11, 12]);
+      final List<int> validYears = options.getValidYears();
+
+      expect(validYears, equals(<int>[2025, 2026]));
     });
   });
 

@@ -114,8 +114,6 @@ class RandomDTOptions {
   /// To handle that, the [getValidDays] method does not include the current
   /// day, hence hours, minutes, etc will not be last intances.
   /// (Unless it is the last day of year).
-  ///
-  /// TODO: Handle the case where year has only one day left.
   List<int> getValidYears() {
     return _years.where((int year) {
       // If the year is in the future, it is valid
@@ -123,16 +121,18 @@ class RandomDTOptions {
         return true;
       }
 
-      // If the year is the current year, we need to check months, days,
+      // If the year is the current year, we need to check for valid months
+      // and days. Because if an year is chosen but does not has valid months
+      // in it. That would backfire.
       if (year == _now.year) {
-        final bool isValidMonth =
+        final bool hasValidMonth =
             _months.any((int month) => month >= _now.month);
-        final bool isValidDay =
-            _now.month == 12 || _days.any((int day) => day >= _now.day);
+        final bool hasValidDay =
+            _now.month == 12 && _days.any((int day) => day > _now.day);
 
         // A year is valid if any of the time units (month, day, hour, minute)
         // conditions are met
-        return isValidMonth && isValidDay;
+        return hasValidMonth && hasValidDay;
       }
 
       // If the year is in the past, it is not valid unless allowPastDates is
