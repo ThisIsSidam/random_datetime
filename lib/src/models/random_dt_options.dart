@@ -9,6 +9,8 @@ class RandomDTOptions {
   /// Whether to allow resulting [DateTime] object to be from the past.
   final bool allowPastDates;
 
+  final int futureYearLimit;
+
   /// The list of years which are used to filter and then pick the random
   /// year from.
   late final List<int> _years;
@@ -62,6 +64,7 @@ class RandomDTOptions {
   /// on in the [getValidDays] method.
   RandomDTOptions({
     this.allowPastDates = false,
+    this.futureYearLimit = 5,
     int? startYear,
     int? endYear,
     List<int>? months,
@@ -74,7 +77,7 @@ class RandomDTOptions {
   }) {
     _now = DateTime.now();
     startYear ??= allowPastDates ? 1970 : _now.year;
-    endYear ??= _now.year + 5;
+    endYear ??= _now.year + futureYearLimit;
     _years = List<int>.generate(
       endYear - startYear + 1,
       (int i) => i + (startYear ?? _now.year),
