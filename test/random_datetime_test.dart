@@ -100,48 +100,16 @@ void main() {
       final RandomDTOptions options = RandomDTOptions(
         allowPastDates: true,
         startYear: 2023,
-        endYear: 2023,
+        endYear: 2024,
+        days: <int>[27, 28, 29, 30, 31],
+        months: <int>[2],
       );
 
       // Let's assume today is December 11
-      final List<int> validDays = options.getValidDays(2023, 12); // December
+      final List<int> validDays = options.getValidDays(2024, 2); // December
 
       // Since allowPastDates is true, all days in December (1-31) should be valid
-      expect(
-          validDays,
-          equals(<int>[
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            10,
-            11,
-            12,
-            13,
-            14,
-            15,
-            16,
-            17,
-            18,
-            19,
-            20,
-            21,
-            22,
-            23,
-            24,
-            25,
-            26,
-            27,
-            28,
-            29,
-            30,
-            31
-          ]));
+      expect(validDays, equals(<int>[27, 28, 29]));
     });
   });
 }

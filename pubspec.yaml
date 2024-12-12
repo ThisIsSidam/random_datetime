@@ -1,5 +1,5 @@
 name: random_datetime
-description: "Get randomized datetime objects. The plugin always you to add time-unit wise limitations to the randomized datetime objects. For example, Randomized DateTime where time is between 7 to 10 PM."
+description: "Get randomized DateTime objects. The plugin allows you to add time-unit wise limitations to the randomized DateTime. Ex: Randomized DateTime where time is between 7 to 10 PM."
 version: 0.0.2
 homepage:
 repository: https://github.com/ThisIsSidam/random_datetime

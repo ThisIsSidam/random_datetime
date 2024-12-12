@@ -24,3 +24,4 @@ linter:
     unnecessary_getters_setters: true
     unnecessary_string_escapes: true
     void_checks: true
+    lines_longer_than_80_chars: true
