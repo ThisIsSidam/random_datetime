@@ -201,4 +201,21 @@ class RandomDTOptions {
 
   /// Returns list of possible microseconds
   List<int> getValidMicroseconds(int millisecond) => _microseconds;
+
+  /// Converts the  class's attributes to string
+  /// It although does not include units after hours as their
+  /// list values can be large, ex: milliseconds' list if of 0 to 999.
+  /// And also because it is thought to not cause errors.
+  @override
+  String toString() {
+    return '''RandomDTOptions{
+      _now: $_now,
+      allowPastDates: $allowPastDates
+      futureYearLimit: $futureYearLimit
+      Years: ${_years.first} - ${_years.last} (${_years.length} total)
+      Months: $_months
+      Days: $_days
+      Hours: $_hours
+    }''';
+  }
 }
