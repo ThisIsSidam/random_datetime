@@ -13,3 +13,7 @@
 * Removed Ranges for RandomDTOptions and added list input for more specifity.
 * Added proper documentations for all classes and methods.
 * Added various tests and fixed issues.
+
+## 1.0.1
+
+* Moved 'test' package to dev-dependency so it doesn't conflict when being used.
