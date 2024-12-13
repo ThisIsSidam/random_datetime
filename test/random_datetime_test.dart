@@ -123,4 +123,17 @@ void main() {
       expect(validDays, equals(<int>[27, 28, 29]));
     });
   });
+
+  group('test', () {
+    test('Throws error since ', () {
+      final RandomDTOptions option = RandomDTOptions(
+        allowPastDates: false,
+        startYear: 2024,
+        endYear: 2025,
+      );
+
+      final List<int> validMonths = option.getValidMonths(2024);
+      expect(validMonths, equals(<int>[12]));
+    });
+  });
 }

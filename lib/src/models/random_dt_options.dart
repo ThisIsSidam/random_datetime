@@ -154,7 +154,7 @@ class RandomDTOptions {
     if (year > _now.year || allowPastDates) {
       return _months;
     } else if (year == _now.year) {
-      return _months.sublist(0, _now.month);
+      return _months.sublist(_now.month - 1);
     } else {
       return <int>[];
     }
