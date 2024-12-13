@@ -16,8 +16,6 @@ I was working on my flutter project [Rem](https://github.com/ThisIsSidam/rem-rem
 - **Edge Case Handling**: Handles cases like leap years, month-day mismatches (e.g., February 30), and ensures future or past date generation works smoothly.
 - **Error Handling**: If the random generation fails, the plugin retries multiple times before throwing an error.
 
----
-
 ## Installation
 
 To use this plugin, add it to your `pubspec.yaml` file:
@@ -28,8 +26,6 @@ dependencies:
 ```
 
 Then, run `pub get` to fetch the package.
-
----
 
 ## Usage
 
@@ -75,8 +71,6 @@ void main() {
 }
 ```
 
----
-
 ## API Reference
 
 ### `RandomDTOptions`
@@ -103,18 +97,16 @@ The `RandomDateTime` class generates random `DateTime` values based on the provi
 
 - `random()`: Generates and returns a random `DateTime` object based on the options passed to the constructor.
 
----
-
 ## Contributing
 
 We welcome contributions! If you find a bug or want to add a feature, please create an issue or submit a pull request. When submitting a pull request, ensure your changes include appropriate tests.
 
----
-
 ## License
 
-This package is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This package is licensed under the GNU GPL3 License. See the [LICENSE](LICENSE) file for details.
 
----
+.
+.
+.
 
 Thank you for using the `random_datetime` package! I hope it helps.
