@@ -1,5 +1,5 @@
 import 'package:random_datetime/random_datetime.dart';
-import 'package:random_datetime/src/models/random_dt_options.dart';
+import 'package:random_datetime/random_dt_options.dart';
 
 void main() {
   // Example 1: Default usage - generates a random future DateTime

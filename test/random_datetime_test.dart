@@ -1,4 +1,4 @@
-import 'package:random_datetime/src/models/random_dt_options.dart';
+import 'package:random_datetime/random_dt_options.dart';
 import 'package:random_datetime/src/utils/datetime_ext.dart';
 import 'package:test/test.dart';
 
