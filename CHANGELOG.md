@@ -6,7 +6,7 @@
 
 * No important changes. I fixed file structure and other minor things.
 
-## 0.0.3
+## 1.0.0
 
 * Added option to get DateTime objects of past.
 * Added option to change the future years default count (was 5 previously).
