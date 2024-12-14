@@ -1,4 +1,4 @@
-import 'package:random_datetime/src/enums/days_in_months.dart';
+import 'package:random_datetime/enums/days_in_months.dart';
 
 class RandomDTOptions {
   /// The [DateTime] instance which is initialized with .now() and
