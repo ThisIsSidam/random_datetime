@@ -103,7 +103,7 @@ We welcome contributions! If you find a bug or want to add a feature, please cre
 
 ## License
 
-This package is licensed under the GNU GPL3 License. See the [LICENSE](LICENSE) file for details.
+This package is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 .
 .

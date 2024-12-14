@@ -17,3 +17,8 @@
 ## 1.0.1
 
 * Moved 'test' package to dev-dependency so it doesn't conflict when being used.
+
+## 1.0.2
+
+* Made DaysInMonths enum accessible
+* Changed License to MIT
