@@ -89,6 +89,19 @@ void main() {
       final List<int> validMonths = options.getValidMonths(2023);
       expect(validMonths, equals(<int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]));
     });
+
+    test(
+        'returns only months left fromm now in current year if allowPastDates is false',
+        () {
+      final RandomDTOptions option = RandomDTOptions(
+        allowPastDates: false,
+        startYear: 2024,
+        endYear: 2025,
+      );
+
+      final List<int> validMonths = option.getValidMonths(2024);
+      expect(validMonths, equals(<int>[12])); // change accordingly
+    });
   });
 
   group('RandomDTOptions - getValidDays', () {
@@ -124,16 +137,47 @@ void main() {
     });
   });
 
-  group('test', () {
-    test('Throws error since ', () {
-      final RandomDTOptions option = RandomDTOptions(
-        allowPastDates: false,
-        startYear: 2024,
-        endYear: 2025,
+  group('RandomDTOptions - Created through different constructors', () {
+    test('Checking both constructors with normal parameters', () {
+      final RandomDTOptions options = RandomDTOptions(
+        allowPastDates: true,
+        startYear: 2023,
+        endYear: 2024,
+        days: <int>[27, 28, 29, 30, 31],
+        months: <int>[2],
       );
 
-      final List<int> validMonths = option.getValidMonths(2024);
-      expect(validMonths, equals(<int>[12]));
+      final RandomDTOptions options2 = RandomDTOptions.withRange(
+        allowPastDates: true,
+        yearRange: TimeRange(start: 2023, end: 2024),
+        dayRange: TimeRange(start: 27, end: 31),
+        monthRange: TimeRange(start: 2, end: 2),
+      );
+
+      expect(options == options2, equals(true));
+    });
+
+    test('Checking both constructors with wrapping parameters', () {
+      final RandomDTOptions options = RandomDTOptions(
+        allowPastDates: true,
+        startYear: 2023,
+        endYear: 2024,
+        months: <int>[11, 12, 1, 2],
+        days: <int>[27, 28, 29, 30, 31, 1, 2, 3, 4],
+        hours: <int>[22, 23, 0, 1, 2, 3, 4, 5],
+        minutes: <int>[58, 59, 0, 1, 2, 3, 4, 5],
+      );
+
+      final RandomDTOptions options2 = RandomDTOptions.withRange(
+        allowPastDates: true,
+        yearRange: TimeRange(start: 2023, end: 2024),
+        monthRange: TimeRange(start: 11, end: 2),
+        dayRange: TimeRange(start: 27, end: 4),
+        hourRange: TimeRange(start: 22, end: 5),
+        minuteRange: TimeRange(start: 58, end: 5),
+      );
+
+      expect(options == options2, equals(true));
     });
   });
 }

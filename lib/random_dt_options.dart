@@ -1,5 +1,23 @@
 import 'package:random_datetime/enums/days_in_months.dart';
 
+/// A class to store the range for each unit of time
+/// Both [start] and [end] attributes are nullable.
+///
+/// If [start] is null, the current value of unit is taken
+/// If [end] is null, the max value of unit is taken, i.e.,
+/// for months, 12 is max value, for hours, 23 is max value,
+/// for years futureYearLimit of [RandomDTOptions] is max value.
+///
+/// Keep in mind that [start] and [end] are both inclusive
+///
+/// To keep a single value using range, set [start] and [end] to the same value
+class TimeRange {
+  final int? start;
+  final int? end;
+
+  const TimeRange({this.start, this.end});
+}
+
 class RandomDTOptions {
   /// The [DateTime] instance which is initialized with .now() and
   /// used as reference of current time for the whole lifecycle of
@@ -80,7 +98,7 @@ class RandomDTOptions {
     endYear ??= _now.year + futureYearLimit;
     _years = List<int>.generate(
       endYear - startYear + 1,
-      (int i) => i + (startYear ?? _now.year),
+      (int i) => i + (startYear ?? (allowPastDates ? 1970 : _now.year)),
     );
     _months = months ?? <int>[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     _days = days ?? List<int>.generate(31, (int index) => index + 1);
@@ -91,6 +109,64 @@ class RandomDTOptions {
         milliseconds ?? List<int>.generate(1000, (int index) => index);
     _microseconds =
         microseconds ?? List<int>.generate(1000, (int index) => index);
+  }
+
+  // With range constructor
+  RandomDTOptions.withRange({
+    this.allowPastDates = false,
+    this.futureYearLimit = 5,
+    TimeRange yearRange = const TimeRange(start: 1970, end: 5),
+    TimeRange monthRange = const TimeRange(start: 1, end: 12),
+    TimeRange dayRange = const TimeRange(start: 1, end: 31),
+    TimeRange hourRange = const TimeRange(start: 0, end: 23),
+    TimeRange minuteRange = const TimeRange(start: 0, end: 59),
+    TimeRange secondRange = const TimeRange(start: 0, end: 59),
+    TimeRange millisecondRange = const TimeRange(start: 0, end: 999),
+    TimeRange microsecondRange = const TimeRange(start: 0, end: 999),
+  }) : _now = DateTime.now() {
+    final int startYear = allowPastDates ? yearRange.start ?? 1970 : _now.year;
+    final int endYear = yearRange.end ?? _now.year + futureYearLimit;
+    _years = List<int>.generate(
+      endYear - startYear + 1,
+      (int i) => i + (startYear),
+    );
+    _months = _generateRangeList(monthRange.start!, monthRange.end!, 1, 12);
+
+    _days = _generateRangeList(dayRange.start!, dayRange.end!, 1, 31);
+
+    _hours = _generateRangeList(hourRange.start!, hourRange.end!, 0, 23);
+
+    _minutes = _generateRangeList(minuteRange.start!, minuteRange.end!, 0, 59);
+
+    _seconds = _generateRangeList(secondRange.start!, secondRange.end!, 0, 59);
+
+    _milliseconds = _generateRangeList(
+        millisecondRange.start!, millisecondRange.end!, 0, 999);
+
+    _microseconds = _generateRangeList(
+        microsecondRange.start!, microsecondRange.end!, 0, 999);
+  }
+
+  /// Helper method to generate a list of integers within a specified range
+  ///
+  /// [start] The starting value of the range
+  /// [end] The ending value of the range (exclusive)
+  /// [max] The maximum possible value for the range
+  /// (e.g., 12 for months, 31 for days)
+  ///
+  /// The method also handles wrap-around ranges by creating a list that
+  /// includes all values from start to max and then from 1 to end
+  static List<int> _generateRangeList(int start, int end, int min, int max) {
+    start = start.clamp(min, max);
+    end = end.clamp(min, max);
+
+    final int rangeSize =
+        end < start ? (max - start + 1) + (end - min + 1) : (end - start + 1);
+
+    return List<int>.generate(rangeSize, (int i) {
+      final int value = start + i;
+      return min + ((value - min) % (max - min + 1));
+    });
   }
 
   /// Get valid years from [_years], which is the list of possible years
@@ -217,5 +293,53 @@ class RandomDTOptions {
       Days: $_days
       Hours: $_hours
     }''';
+  }
+
+  /// Returns the hash code
+  @override
+  int get hashCode => Object.hash(
+        allowPastDates,
+        futureYearLimit,
+        _years,
+        _months,
+        _days,
+        _hours,
+        _minutes,
+        _seconds,
+        _milliseconds,
+        _microseconds,
+      );
+
+  /// Checks if two [RandomDTOptions] objects are equal
+  /// compares list through the elements in them rather than the list itself
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is RandomDTOptions &&
+            runtimeType == other.runtimeType &&
+            allowPastDates == other.allowPastDates &&
+            futureYearLimit == other.futureYearLimit &&
+            _listEquals(_years, other._years) &&
+            _listEquals(_months, other._months) &&
+            _listEquals(_days, other._days) &&
+            _listEquals(_hours, other._hours) &&
+            _listEquals(_minutes, other._minutes) &&
+            _listEquals(_seconds, other._seconds) &&
+            _listEquals(_milliseconds, other._milliseconds) &&
+            _listEquals(_microseconds, other._microseconds);
+  }
+
+  /// Checks if two lists contain the same elements
+  bool _listEquals(List<int> a, List<int> b) {
+    if (a.length != b.length) {
+      return false;
+    }
+
+    for (int i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) {
+        return false;
+      }
+    }
+    return true;
   }
 }
