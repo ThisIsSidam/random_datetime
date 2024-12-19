@@ -1,6 +1,6 @@
 # Random DateTime
 
-The package provides a simple and customizable way to generate random `DateTime` objects within user-defined bounds. You can control the generation of each unit of time such as years, months, days, hours, minutes, and so on. For example, a randomized datetime between between dates 3 to 5 only.
+The package provides a simple and customizable way to generate random `DateTime` objects within user-defined bounds. You can control the generation of each unit of time such as years, months, days, hours, minutes, and so on. For example, a randomized datetime between dates 3 to 5 only.
 
 Although, it can be a bit contradictory that the generation is randomized and yet bounded, it is for those who need it.
 
@@ -15,6 +15,7 @@ I was working on my flutter project [Rem](https://github.com/ThisIsSidam/rem-rem
 - **Automatic Filtering**: Automatically filters and ensures valid `DateTime` values based on the current date and the provided ranges.
 - **Edge Case Handling**: Handles cases like leap years, month-day mismatches (e.g., February 30), and ensures future or past date generation works smoothly.
 - **Error Handling**: If the random generation fails, the plugin retries multiple times before throwing an error.
+- **Simplified Constructor**: Use `.withRange` to quickly define a range for generating random dates.
 
 ## Installation
 
@@ -51,6 +52,8 @@ void main() {
 
 You can customize the range for each unit of time:
 
+## Using default constructor
+
 ```dart
 import 'package:random_datetime/random_datetime.dart';
 
@@ -68,6 +71,25 @@ void main() {
   final randomDateTime = randomDT.random();
 
   print(randomDateTime);  // Random DateTime within the defined range
+}
+```
+
+## Using `.withRange` Constructor
+
+```dart
+import 'package:random_datetime/random_datetime.dart';
+
+void main() {
+  // Create a RandomDateTime instance with a specific range
+  final RandomDTOptions options = RandomDTOptions.withRange(
+    monthRange: const TimeRange(start: 3, end: 5), // March to May
+    dayRange: const TimeRange(start: 10, end: 20), // Days from 10 to 20
+  );
+
+  final randomDT = RandomDateTime(options: options);
+
+  final randomDateTime = randomDT.random();
+  print(randomDateTime.random());  
 }
 ```
 

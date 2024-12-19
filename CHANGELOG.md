@@ -22,3 +22,8 @@
 
 * Made DaysInMonths enum accessible
 * Changed License to MIT
+
+## 1.0.3
+
+* Added RandomDTOptions.withRange constructor
+* Added proper error throw for in case valid year was not found
