@@ -37,7 +37,9 @@ class RandomDateTime {
 
         return DateTime(
             year, month, day, hour, minute, second, millisecond, microsecond);
-      } catch (_) {}
+      } catch (e) {
+        if (e is ArgumentError) rethrow;
+      }
     }
     throw '''
       Could not generate random DateTime object

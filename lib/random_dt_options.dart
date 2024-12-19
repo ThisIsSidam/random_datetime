@@ -92,10 +92,16 @@ class RandomDTOptions {
     List<int>? seconds,
     List<int>? milliseconds,
     List<int>? microseconds,
-  }) {
-    _now = DateTime.now();
+  }) : _now = DateTime.now() {
     startYear ??= allowPastDates ? 1970 : _now.year;
     endYear ??= _now.year + futureYearLimit;
+    if (!allowPastDates && endYear < _now.year) {
+      throw ArgumentError(
+        // ignore: lines_longer_than_80_chars
+        'End year [$endYear] cannot be less than current year if allowPastDates is false',
+      );
+    }
+
     _years = List<int>.generate(
       endYear - startYear + 1,
       (int i) => i + (startYear ?? (allowPastDates ? 1970 : _now.year)),
@@ -115,7 +121,7 @@ class RandomDTOptions {
   RandomDTOptions.withRange({
     this.allowPastDates = false,
     this.futureYearLimit = 5,
-    TimeRange yearRange = const TimeRange(start: 1970, end: 5),
+    TimeRange yearRange = const TimeRange(),
     TimeRange monthRange = const TimeRange(start: 1, end: 12),
     TimeRange dayRange = const TimeRange(start: 1, end: 31),
     TimeRange hourRange = const TimeRange(start: 0, end: 23),
@@ -126,6 +132,12 @@ class RandomDTOptions {
   }) : _now = DateTime.now() {
     final int startYear = allowPastDates ? yearRange.start ?? 1970 : _now.year;
     final int endYear = yearRange.end ?? _now.year + futureYearLimit;
+    if (!allowPastDates && endYear < _now.year) {
+      throw ArgumentError(
+        // ignore: lines_longer_than_80_chars
+        'End year [$endYear] cannot be less than current year if allowPastDates is false',
+      );
+    }
     _years = List<int>.generate(
       endYear - startYear + 1,
       (int i) => i + (startYear),
@@ -194,7 +206,7 @@ class RandomDTOptions {
   /// day, hence hours, minutes, etc will not be last intances.
   /// (Unless it is the last day of year).
   List<int> getValidYears() {
-    return _years.where((int year) {
+    final List<int> result = _years.where((int year) {
       // If the year is in the future, it is valid
       if (year > _now.year || allowPastDates) {
         return true;
@@ -218,6 +230,16 @@ class RandomDTOptions {
       // true
       return false;
     }).toList();
+
+    if (result.isEmpty) {
+      throw ArgumentError('''
+        Could not generate random dateTime | No valid years found
+
+        Most probable cause is that only current year is applicable while
+        all the months and days have passed. Check the parameters.
+        ''');
+    }
+    return result;
   }
 
   /// Get valid months based on the passed year.
