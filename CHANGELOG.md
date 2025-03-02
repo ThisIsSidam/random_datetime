@@ -27,3 +27,8 @@
 
 * Added RandomDTOptions.withRange constructor
 * Added proper error throw for in case valid year was not found
+
+## 1.0.4
+
+* Fixed Error in valid year and month selection
+* Fixed the three-try random generation in .random method
