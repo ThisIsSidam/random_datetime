@@ -92,4 +92,28 @@ void main() {
       RandomDateTime(options: comprehensiveRangeOptions);
   final DateTime comprehensiveRangeDateTime = comprehensiveRangeRandom.random();
   print('Comprehensive Range Random DateTime: $comprehensiveRangeDateTime\n');
+
+  print('Example 10: Example based on usage in Rem app');
+  final DateTime now = DateTime.now();
+  final DateTime startDate = now.add(const Duration(days: 3));
+  final DateTime endDate = now.add(const Duration(days: 14));
+
+  final DateTime startTime = startDate.copyWith(hour: 8, minute: 27);
+  final DateTime endTime = startDate.copyWith(hour: 6, minute: 4);
+  final RandomDateTime randomTime = RandomDateTime(
+    options: RandomDTOptions.withRange(
+      yearRange: TimeRange(start: startDate.year, end: endDate.year),
+      monthRange: TimeRange(start: startDate.month, end: endDate.month),
+      dayRange: TimeRange(start: startDate.day, end: endDate.day),
+      hourRange: TimeRange(start: startTime.hour, end: endTime.hour),
+      minuteRange: TimeRange(start: startTime.minute, end: endTime.minute),
+      secondRange: const TimeRange(start: 0, end: 0),
+      millisecondRange: const TimeRange(start: 0, end: 0),
+      microsecondRange: const TimeRange(start: 0, end: 0),
+    ),
+  );
+
+  for (int i = 0; i < 10; i++) {
+    print(randomTime.random());
+  }
 }

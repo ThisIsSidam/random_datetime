@@ -3,6 +3,13 @@ import 'package:random_datetime/src/utils/datetime_ext.dart';
 import 'package:test/test.dart';
 
 // ignore_for_file: lines_longer_than_80_chars
+
+// =========== IMPORTANT =========================================
+// All tests are written or modified based on the time of it.
+// So use your own knowledge to see what should be correct output
+// or parameters and test accordingly.
+// ================================================================
+
 void main() {
   group('DateTimeExt - remainingMonths', () {
     test('returns remaining months from the current month onwards', () {
@@ -40,8 +47,8 @@ void main() {
     });
 
     test('returns all years if allowPastDates is true', () {
-      final RandomDTOptions options =
-          RandomDTOptions(startYear: 2020, endYear: 2025, months: <int>[1, 2]);
+      final RandomDTOptions options = RandomDTOptions(
+          startYear: 2020, endYear: 2025, months: <int>[1, 2, 3]);
       final List<int> validYears = options.getValidYears();
 
       // If allowPastDates is false, and months are specified, only valid year is 2025
@@ -91,7 +98,7 @@ void main() {
     });
 
     test(
-        'returns only months left fromm now in current year if allowPastDates is false',
+        'returns only months left from now in current year if allowPastDates is false',
         () {
       final RandomDTOptions option = RandomDTOptions(
         allowPastDates: false,
@@ -99,8 +106,11 @@ void main() {
         endYear: 2025,
       );
 
-      final List<int> validMonths = option.getValidMonths(2024);
-      expect(validMonths, equals(<int>[12])); // change accordingly
+      final List<int> validMonths = option.getValidMonths(2025);
+      expect(
+        validMonths,
+        equals(<int>[3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+      ); // change accordingly
     });
   });
 
@@ -109,7 +119,7 @@ void main() {
       final RandomDTOptions options = RandomDTOptions(
         allowPastDates: false,
         startYear: 2024,
-        endYear: 2024,
+        endYear: 2025,
         days: <int>[28, 29, 30],
       );
 

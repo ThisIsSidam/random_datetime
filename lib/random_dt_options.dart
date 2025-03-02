@@ -218,8 +218,7 @@ class RandomDTOptions {
       if (year == _now.year) {
         final bool hasValidMonth =
             _months.any((int month) => month >= _now.month);
-        final bool hasValidDay =
-            _now.month == 12 && _days.any((int day) => day > _now.day);
+        final bool hasValidDay = _days.any((int day) => day > _now.day);
 
         // A year is valid if any of the time units (month, day, hour, minute)
         // conditions are met
@@ -252,7 +251,7 @@ class RandomDTOptions {
     if (year > _now.year || allowPastDates) {
       return _months;
     } else if (year == _now.year) {
-      return _months.sublist(_now.month - 1);
+      return _months.where((int month) => month >= _now.month).toList();
     } else {
       return <int>[];
     }
