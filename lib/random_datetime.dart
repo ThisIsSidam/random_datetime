@@ -22,6 +22,7 @@ class RandomDateTime {
   ///
   /// If an error occurs, it prints out the log and tries to print another
   DateTime random() {
+    Object? caughtE;
     for (int i = 0; i < 3; i++) {
       try {
         final int year = _random.randomPick(options.getValidYears());
@@ -38,10 +39,13 @@ class RandomDateTime {
         return DateTime(
             year, month, day, hour, minute, second, millisecond, microsecond);
       } catch (e) {
-        if (e is ArgumentError) rethrow;
+        caughtE = e;
       }
     }
-    throw '''
+
+    // Throw the error being repetitively caught if present
+    throw caughtE ??
+        '''
       Could not generate random DateTime object
       
       Report a bug at https://github.com/ThisIsSidam/random_datetime/issues
